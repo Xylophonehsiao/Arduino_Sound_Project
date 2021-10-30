@@ -105,6 +105,7 @@ void loop() {
   if (musicPlayer.stopped() && button_state == 1){
     Serial.println("stop~");
     button_state = 0;
+    while(Serial.read()>= 0){}    // clean Sreial buffer
   }
 
 // File is playing in the background
