@@ -18,9 +18,9 @@ void ranSound(){
   String num = String(ranNum, DEC);
   Serial.println("/mp3/"+ num +".mp3");
   String fileName = String("/mp3/"+ num +".mp3");
-//  char charBuf[50];
-//  fileName.toCharArray(charBuf, 50);
-//  musicPlayer.playFullFile(charBuf);
+  char charBuf[50];
+  fileName.toCharArray(charBuf, 50);
+  musicPlayer.playFullFile(charBuf);
   buttom ++;
 }
 
