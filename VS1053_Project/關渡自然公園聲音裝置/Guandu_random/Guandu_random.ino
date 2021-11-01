@@ -88,13 +88,13 @@ void setup() {
 }
 
 void loop() {
-  //sound_signal = analogRead(A1);
-  sound_signal = Serial.read();
+  sound_signal = analogRead(A1);
+  //sound_signal = Serial.read();
   ranNum = random(minimum, maxmum);
   
   if (button_state == 0){
-    //if (sound_signal < sound_gate){
-    if (sound_signal == 49){
+    if (sound_signal < sound_gate){
+    //if (sound_signal == 49){
       button_state = 1;
       Serial.println("play!");
       ranSound();
