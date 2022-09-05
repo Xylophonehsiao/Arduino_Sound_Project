@@ -8,10 +8,10 @@
  * 
  * 2022.08.10
  * fix for wiring broad.
- *
+ * 
  * 2022.09.05
- * commented the serial port @@
- *
+ * fix for can't control DFPlayer while after maybe 10min
+ * 
  */
  
 #include <SoftwareSerial.h>
@@ -25,6 +25,7 @@ const byte potPin = A0;
 const byte playPin = A2;
 byte volumeLevel = 0;
 int vol = 0;
+int vol_before = 0;
 int flag = 0;
 const int button_waitting_time = 5000;
 
@@ -42,14 +43,18 @@ void setup()
   vol = analogRead(potPin);
   volumeLevel = map(vol, 0, 1023, 30, 0); // Volume range 0 - 30
   DFP.volume(volumeLevel);
+  vol_before = vol;
 }
 
 void loop()
 {
   mySerial.listen();
   vol = analogRead(potPin);
-  volumeLevel = map(vol, 0, 1023, 30, 0);   
-  DFP.volume(volumeLevel);
+  if (vol != vol_before){
+    volumeLevel = map(vol, 0, 1023, 30, 0);   
+    DFP.volume(volumeLevel);
+    vol_before = vol;
+  }
   
   if (flag == 0 && analogRead(playPin) <100){
     DFP.play(1);
